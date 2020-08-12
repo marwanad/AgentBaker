@@ -68,7 +68,9 @@ function Get-FilesToCacheOnVHD
 
     $map = @{
         "c:\akse-cache\" = @(
-            "https://github.com/Azure/AgentBaker/raw/master/vhdbuilder/scripts/windows/collect-windows-logs.ps1",
+            # replace collect-windows-logs.ps1 with the following one after pr#187 is merged
+            # "https://github.com/Azure/AgentBaker/raw/master/vhdbuilder/scripts/windows/collect-windows-logs.ps1",
+            "https://github.com/Azure/aks-engine/raw/master/scripts/collect-windows-logs.ps1",
             "https://github.com/Microsoft/SDN/raw/master/Kubernetes/flannel/l2bridge/cni/win-bridge.exe",
             "https://github.com/microsoft/SDN/raw/master/Kubernetes/windows/debug/collectlogs.ps1",
             "https://github.com/microsoft/SDN/raw/master/Kubernetes/windows/debug/dumpVfpPolicies.ps1",
