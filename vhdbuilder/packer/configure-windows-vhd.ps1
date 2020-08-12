@@ -12,7 +12,7 @@ $ErrorActionPreference = "Stop"
 
 filter Timestamp {"$(Get-Date -Format o): $_"}
 
-$global:containerdPackageUrl = "https://marosset.blob.core.windows.net/pub/containerd/containerd-0.0.87-public.zip"
+$global:containerdPackageUrl = "https://k8swin.blob.core.windows.net/k8s-windows/containerd/containerplat-aks-test-0.0.8.zip"
 
 function Write-Log($Message)
 {
