@@ -1059,7 +1059,7 @@ func (a *AgentPoolProfile) GetKubernetesLabels(rg string, deprecated bool) strin
 	if strings.EqualFold(a.StorageProfile, ManagedDisks) {
 		buf.WriteString(fmt.Sprintf(",storageprofile=managed,storagetier=%s", storagetier))
 	} else if strings.EqualFold(a.StorageProfile, Ephemeral) {
-		buf.WriteString(fmt.Sprintf(",storageprofile=ephemeral,storagetier=%s", storagetier))
+		buf.WriteString(fmt.Sprintf(",storageprofile=ephemeral,storagetier=Standard_LRS"))
 	}
 	if common.IsNvidiaEnabledSKU(a.VMSize) {
 		accelerator := "nvidia"
