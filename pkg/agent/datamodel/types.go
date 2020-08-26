@@ -6,10 +6,6 @@ package datamodel
 import (
 	"bytes"
 	"fmt"
-	"github.com/Azure/agentbaker/pkg/aks-engine/helpers"
-	"github.com/Azure/aks-engine/pkg/api/common"
-	"github.com/Azure/go-autorest/autorest/to"
-	"github.com/blang/semver"
 	"hash/fnv"
 	"math/rand"
 	"net"
@@ -18,6 +14,11 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+
+	"github.com/Azure/agentbaker/pkg/aks-engine/helpers"
+	"github.com/Azure/aks-engine/pkg/api/common"
+	"github.com/Azure/go-autorest/autorest/to"
+	"github.com/blang/semver"
 )
 
 // CustomNodesDNS represents the Search Domain when the custom vnet for a custom DNS as a nameserver.
@@ -1054,9 +1055,11 @@ func (a *AgentPoolProfile) GetKubernetesLabels(rg string, deprecated bool) strin
 		buf.WriteString(",kubernetes.io/role=agent")
 	}
 	buf.WriteString(fmt.Sprintf(",agentpool=%s", a.Name))
+	storagetier, _ := common.GetStorageAccountType(a.VMSize)
 	if strings.EqualFold(a.StorageProfile, ManagedDisks) {
-		storagetier, _ := common.GetStorageAccountType(a.VMSize)
 		buf.WriteString(fmt.Sprintf(",storageprofile=managed,storagetier=%s", storagetier))
+	} else if strings.EqualFold(a.StorageProfile, Ephemeral) {
+		buf.WriteString(fmt.Sprintf(",storageprofile=ephemeral,storagetier=%s", storagetier))
 	}
 	if common.IsNvidiaEnabledSKU(a.VMSize) {
 		accelerator := "nvidia"
